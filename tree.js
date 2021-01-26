@@ -48,6 +48,14 @@ find = (x, t) =>
         x > t.val && find(x, t.right)
     )
 
+print = (t, d = 0) => {
+    if (t) {
+        print(t.left, d+1)
+        console.log( ' '.repeat(2*d) + t.val + '  ' + (t.red?'R':'B'))
+        print(t.right, d+1)
+    }
+}
+
 rotLeft = ({val, right, left}) => (
     {...right, left: {val, left, right: right.left}}
 )
@@ -56,8 +64,10 @@ rotRight = ({val, right, left}) => (
     {...left, right: {val, right, left: left.right}}
 )
 
+depth = t => t ? 1 + Math.max(depth(t.left), depth(t.right)) : 0
+
 // tests
-nums = [7,6,5,4,3,2,1]
-t = nums.reduce((t, x) => insert(x, t), null)
-console.log(t)
-console.log(nums.map(x => find(x, t)))
+// balance = t => t
+t = null
+for (let i = 0; i < 10000; i++) t = insert(i, t)
+console.log(depth(t))
