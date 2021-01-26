@@ -36,7 +36,7 @@ balance = t => {
                 val: right.val,
                 red: true,
                 left: {...t, right: right.left},
-                right: right.right,
+                right: {...right.right, red: false},
             } :
         t
 }
